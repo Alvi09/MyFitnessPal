@@ -1,0 +1,7 @@
+{
+  "name": "cs125",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
