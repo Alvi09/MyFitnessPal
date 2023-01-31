@@ -10,6 +10,6 @@ export class Tab1Page {
   constructor() {}
 
   testFunc() {
-    console.log("yo")
+    console.log("yoo")
   }
 }
