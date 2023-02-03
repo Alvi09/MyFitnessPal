@@ -15,27 +15,43 @@ export class Tab3Page {
 
   async enter_info()
   {
-    // Haven't looked into storing this information yet
+    // Not done, need to actually store given inputs into variables, but right now just logging them out
 
     const alert = await this.alertController.create({
       header: 'Please enter your info',
-      buttons: ['OK'],
+      buttons: [
+        {
+          text: 'OK',
+          handler: (alertData) => {
+            console.log("Name: ", alertData.my_name);
+          }
+        }],
       inputs: [
         {
+          name: "my_name",
           placeholder: 'Name',
         },
         {
-          type: 'number',
-          placeholder: 'Weight',
-        },
-        {
+          name: "my_age",
           type: 'number',
           placeholder: 'Age',
           min: 1,
           max: 100,
         },
         {
-          placeholder: "Male / Female"
+          name: "my_height",
+          placeholder: "Height"
+        },
+        {
+          name: "my_weight",
+          type: 'number',
+          placeholder: 'Weight',
+          min: 1,
+          max: 1000,
+        },
+        {
+          name: "my_gender",
+          placeholder: "Gender"
         },
       ],
     });
