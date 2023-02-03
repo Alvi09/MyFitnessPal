@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { Tab1Service } from './tab1.service';
 
 
@@ -9,27 +10,54 @@ import { Tab1Service } from './tab1.service';
   styleUrls: ['tab1.page.scss']
 })
 
+
+
 export class Tab1Page implements OnInit {
+  foods: any[] = [];
+  selected = 0;
+  currentPage = 1;
 
-  constructor(private tab1Service: Tab1Service) {}
+  
+  constructor(private tab1Service: Tab1Service, private loadingCtrl: LoadingController) {}
 
-  getData(searchQuery: Event) {    
+
+  ngOnInit(): void {}
+
+  hidingTest(item: any) {
+    this.selected = item.id;
+  }
+
+
+  async getData(searchQuery: Event) {    
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading...',
+      spinner: 'bubbles',
+    });
+    await loading.present()
 
     const raw_query = (searchQuery.target as HTMLInputElement).value;
     console.log(`search query: ${raw_query}`);
 
     const query = raw_query.replace(/ /g, '%20');
-
+    
     this.tab1Service.getFoodsList(query).subscribe((res) => {
+      loading.dismiss();
+      console.log(res);
+
+      Object.keys(res).forEach((key: any) => {
+        const id = res[key].fdcId;
+        const name = res[key].description;
+        const publicationDate = res[key].publicationDate;
+        const nutrients = res[key].foodNutrients;
+        const brandOwner = res[key].brandOwner
+        
+        const d = {id: id, name: name, publicationDate: publicationDate, nutrients: nutrients, brandOwner: brandOwner};
+        this.foods.push(d);
+      });
+
+      console.log(this.foods);
 
     });
   };
-
-
-  ngOnInit(): void {
-    // this.tab1Service.getFoodsList().subscribe((res) => {
-    //   console.log(res);
-    // })
-  }
 
 }

@@ -13,8 +13,26 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
-
   <ion-searchbar (search)="getData($event)" placeholder="Search for a meal!"> </ion-searchbar>
+
+  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
+
+  <ion-accordion-group>
+    <ion-accordion value="first" *ngFor="let item of foods" (click)="hidingTest(item)">
+      <ion-item slot="header" color="light">
+        <ion-label>{{ item.name }}</ion-label>
+      </ion-item>
+
+      <div class="ion-padding" slot="content" *ngIf="selected === item.id">
+        {{ item.id }}
+
+        <p *ngFor="let info of item.nutrients">
+          {{ info.name }}
+          {{ info.amount }}
+          {{ info.unitName }}
+        </p>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 
 </ion-content>
