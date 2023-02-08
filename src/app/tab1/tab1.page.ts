@@ -53,8 +53,9 @@ export class Tab1Page implements OnInit {
 
         const d = {id: id, name: name, publicationDate: publicationDate, nutrients: nutrients, brandOwner: brandOwner};
         this.foods.push(d);
-      });
 
+      });
+      
       console.log(this.foods);
 
     });

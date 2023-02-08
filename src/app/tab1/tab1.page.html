@@ -27,9 +27,7 @@
         {{ item.id }}
 
         <p *ngFor="let info of item.nutrients">
-          {{ info.name }}
-          {{ info.amount }}
-          {{ info.unitName }}
+          <li> {{ info.amount }}{{ info.unitName }} {{ info.name }}   </li>
         </p>
       </div>
     </ion-accordion>

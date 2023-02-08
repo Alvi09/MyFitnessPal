@@ -9,6 +9,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+  userInfo: any[] = [];
 
   constructor(private alertController: AlertController) {}
 
@@ -23,34 +24,42 @@ export class Tab3Page {
         {
           text: 'OK',
           handler: (alertData) => {
-            console.log("Name: ", alertData.my_name);
+            // console.log("Name: ", alertData.my_name);
+            const name = alertData.name;
+            const age = alertData.age;
+            const height = alertData.height;
+            const weight = alertData.weight;
+            const gender = alertData.gender;
+
+            this.userInfo[0] = ({name: name, age: age, height: height, weight: weight, gender: gender});
+            console.log(this.userInfo);
           }
         }],
       inputs: [
         {
-          name: "my_name",
+          name: "name",
           placeholder: 'Name',
         },
         {
-          name: "my_age",
+          name: "age",
           type: 'number',
           placeholder: 'Age',
           min: 1,
           max: 100,
         },
         {
-          name: "my_height",
+          name: "height",
           placeholder: "Height"
         },
         {
-          name: "my_weight",
+          name: "weight",
           type: 'number',
           placeholder: 'Weight',
           min: 1,
           max: 1000,
         },
         {
-          name: "my_gender",
+          name: "gender",
           placeholder: "Gender"
         },
       ],
