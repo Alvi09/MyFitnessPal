@@ -27,13 +27,31 @@ export class Tab3Page {
         {
           text: 'OK',
           handler: (alertData) => {
-            // console.log("Name: ", alertData.my_name);
+            // console.log("Selected gender: ", alertData.gender);
+            // console.log("Selected goal: ", alertData.goal);
+            // const selectedGender = Object.values(alertData.gender).find(value => value === 'male' || value === 'female');
+            // console.log("Selected gender: ", alertData.gender);
+            // const selectedGoals = Object.values(alertData.goal).filter(value => value === 'loss' || value === 'gain' || value === 'maintain');
+            // console.log("Selected goal: ", alertData.goal);
+            //console.log("Selected gender: ", alertData.gender);
             const name = alertData.name;
             const age = alertData.age;
             const height = alertData.height;
             const weight = alertData.weight;
-            const gender = alertData.gender;   
-            const goal = alertData.goal        
+            let goal = "maintain"
+            let gender = "male"
+            if (alertData.gender == 1) {
+              const gender = "male";
+            } else if (alertData.gender == 2) {
+              const gender = "female"
+            }
+            if (alertData.goal == 1) {
+              const goal = "loss"
+            } else if (alertData.goal == 2) {
+              const goal = "gain"
+            } else if (alertData.goal == 3) {
+              const goal = "maintain"
+            }  
             this.userInfo[0] = ({name: name, age: age, height: height, weight: weight, gender: gender, goal: goal});
             if (gender == 'male')
               this.calories = Math.floor((88.362 + (13.397 * this.userInfo[0].weight) + (4.799 * this.userInfo[0].height) - (5.677 * this.userInfo[0].age)) * 1.55)
@@ -44,7 +62,6 @@ export class Tab3Page {
             else if (goal == 'gain')
               this.calories += 500
 
-            
             this.protein = Math.floor(this.calories * .07)
             this.carbs = Math.floor(this.calories * .05)
             this.fat = Math.floor(this.calories * .03333)
@@ -52,39 +69,45 @@ export class Tab3Page {
             console.log(this.userInfo);
             this.informationEntered = false;
           }
-        }],
-        inputs: [
-          {
-            name: "name",
-            placeholder: 'Name',
-          },
-          {
-            name: "age",
-            type: 'number',
-            placeholder: 'Age',
-            min: 1,
-            max: 100,
-          },
-          {
-            name: "height",
-            placeholder: "Height (cm)"
-          },
-          {
-            name: "weight",
-            type: 'number',
-            placeholder: 'Weight (kg)',
-            min: 1,
-            max: 1000,
-          },
-          {
-            name: "gender",
-            placeholder: "Gender (m/f)"
-          },
-          {
-            name: "goal",
-            placeholder: "loss/gain/maintain"
-          },
-        ],
+      }],
+      inputs: [
+        {
+          name: "name",
+          placeholder: 'Name',
+        },
+        {
+          name: "age",
+          type: 'number',
+          placeholder: 'Age',
+          min: 1,
+          max: 100,
+        },
+        {
+          name: "height",
+          placeholder: "Height (cm)"
+        },
+        {
+          name: "weight",
+          type: 'number',
+          placeholder: 'Weight (kg)',
+          min: 1,
+          max: 1000,
+        },
+        {
+          name: "gender",
+          type: 'number',
+          placeholder: 'Gender:1(M),2(F)',
+          min: 1,
+          max: 2,
+        },
+        {
+          name: "goal",
+          type: 'number',
+          placeholder: 'Goal:1(loss),2(maintain),3(gain)',
+          min: 1,
+          max: 3,
+        },
+      ],
       });
       
       await alert.present();

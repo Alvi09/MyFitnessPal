@@ -23,7 +23,7 @@
   </ion-card>
   
   <ion-card *ngIf="!informationEntered">
-    <ion-card-header *ngIf="userInfo[0].gender == 'm'">
+    <ion-card-header *ngIf="userInfo[0].gender == 'male'">
       <ion-card-title> Recommended macros for {{userInfo[0].name}} to {{ userInfo[0].goal }}</ion-card-title>
       <ion-card-subtitle>Calories: {{ calories }}</ion-card-subtitle>
       <ion-card-subtitle>Protein: {{ protein }}g</ion-card-subtitle>
