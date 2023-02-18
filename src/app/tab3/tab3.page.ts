@@ -16,11 +16,8 @@ export class Tab3Page {
   fat = 0
   constructor(private alertController: AlertController) {}
 
-
   async enter_info()
   {
-    // Not done, need to actually store given inputs into variables, but right now just logging them out
-
     const alert = await this.alertController.create({
       header: 'Please enter your info',
       buttons: [
@@ -38,21 +35,24 @@ export class Tab3Page {
             const age = alertData.age;
             const height = alertData.height;
             const weight = alertData.weight;
-            let goal = "maintain"
-            let gender = "male"
+            let goal = ""
+            let gender = ""
+
             if (alertData.gender == 1) {
-              const gender = "male";
+              gender = "male";
             } else if (alertData.gender == 2) {
-              const gender = "female"
+              gender = "female"
             }
             if (alertData.goal == 1) {
-              const goal = "loss"
+              goal = "loss"
             } else if (alertData.goal == 2) {
-              const goal = "gain"
+              goal = "maintain"
             } else if (alertData.goal == 3) {
-              const goal = "maintain"
+              goal = "gain"
             }  
+
             this.userInfo[0] = ({name: name, age: age, height: height, weight: weight, gender: gender, goal: goal});
+
             if (gender == 'male')
               this.calories = Math.floor((88.362 + (13.397 * this.userInfo[0].weight) + (4.799 * this.userInfo[0].height) - (5.677 * this.userInfo[0].age)) * 1.55)
             else
