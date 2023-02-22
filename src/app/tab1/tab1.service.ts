@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 const base_url = environment.base_url;
 const api_key = environment.apiKey;
 const endpoint = 'foods/list'
+const pageSize = '100'
 
 
 @Injectable({
@@ -23,7 +24,7 @@ export class Tab1Service {
   // endpoints: https://fdc.nal.usda.gov/api-spec/fdc_api.html#/
 
   getFoodsList(query: string): Observable<any> {
-    const url = `${base_url}${endpoint}?api_key=${api_key}&query=${query}`;
+    const url = `${base_url}${endpoint}?api_key=${api_key}&pageSize=${pageSize}&query=${query}`;
     console.log(`url: ${url}`);
     return this.http.get(url);
   }
