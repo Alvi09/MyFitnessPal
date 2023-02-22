@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 const base_url = environment.base_url;
 const api_key = environment.apiKey;
 const endpoint = 'foods/list'
-const pageSize = '100'
+const pageSize = '50'
 
 
 @Injectable({

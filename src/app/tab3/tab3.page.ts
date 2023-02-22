@@ -53,6 +53,7 @@ export class Tab3Page {
 
             this.userInfo[0] = ({name: name, age: age, height: height, weight: weight, gender: gender, goal: goal});
 
+            // fix calculations
             if (gender == 'male')
               this.calories = Math.floor((88.362 + (13.397 * this.userInfo[0].weight) + (4.799 * this.userInfo[0].height) - (5.677 * this.userInfo[0].age)) * 1.55)
             else
