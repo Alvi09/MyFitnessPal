@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-
 import { AlertController } from '@ionic/angular';
+import { Tab1Service } from '../tab1/tab1.service';
+
 
 @Component({
   selector: 'app-tab3',
@@ -14,8 +15,8 @@ export class Tab3Page {
   protein = 0
   carbs = 0
   fat = 0
-  constructor(private alertController: AlertController) {}
-
+  constructor(private tab1Service: Tab1Service, private alertController: AlertController) {}
+  //not sure if need loadingController
   async enter_info()
   {
     const alert = await this.alertController.create({
@@ -113,4 +114,9 @@ export class Tab3Page {
       
       await alert.present();
   }
+  // async getFoodsListByMacros() {
+  //   const query = `nutrients?nutrientList=calories,protein,totalCarbohydrate,totalFat&nutrients[0].min=${this.calories}&nutrients[1].min=${this.protein}&nutrients[1].max=${this.protein}&nutrients[2].min=${this.carbs}&nutrients[2].max=${this.carbs}&nutrients[3].min=${this.fat}&nutrients[3].max=${this.fat}`;
+  //doesnt work as of now.
+  //   return this.tab1Service.getFoodsList(query)
+  // }
 }

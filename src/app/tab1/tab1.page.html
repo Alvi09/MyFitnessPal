@@ -29,6 +29,25 @@
         </ion-select>
       </ion-item>
 
+      <ion-item>
+        <ion-label>Minimum Calories:</ion-label>
+        <ion-input type="number" [(ngModel)]="minCalories" (ionChange)="filterFoods()"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Minimum Protein:</ion-label>
+        <ion-input type="number" [(ngModel)]="minProtein" (ionChange)="filterFoods()"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Minimum Carbs:</ion-label>
+        <ion-input type="number" [(ngModel)]="minCarbs" (ionChange)="filterFoods()"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Minimum Fat:</ion-label>
+        <ion-input type="number" [(ngModel)]="minFat" (ionChange)="filterFoods()"></ion-input>
+      </ion-item>
       <!-- <ion-item>
         <ion-label>Sort By</ion-label>
         <ion-select 
