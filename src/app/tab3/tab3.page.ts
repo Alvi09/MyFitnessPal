@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Directive, Output, EventEmitter, Input, SimpleChange} from '@angular/core';
+
 
 @Component({
   selector: 'app-tab3',
@@ -14,7 +16,20 @@ export class Tab3Page {
   protein = 0
   carbs = 0
   fat = 0
-  constructor(private alertController: AlertController) {}
+  macro_list: any[] = [];
+  food_list: any[] = [];
+  total_macros = {"energy": 0, "protein": 0, "carbs": 0, "fat": 0}
+
+  constructor(private alertController: AlertController, private activatedRoute: ActivatedRoute) {}
+  ngOnInit() {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.food_list = params['food_list'];
+      this.macro_list = params['macro_list'];
+      this.total_macros = params['total_macros']
+      console.log(this.food_list)
+    });
+  }
+
 
   async enter_info()
   {

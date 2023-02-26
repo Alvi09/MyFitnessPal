@@ -12,50 +12,55 @@
       <ion-title size="large"> Meals </ion-title>
     </ion-toolbar>
   </ion-header>
-
+  
   <ion-searchbar show-clear-button="always" show-cancel-button="focus" (search)="getData($event)" placeholder="Search for a meal!"> </ion-searchbar>
-
+  
   <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
-
+  
   <ion-accordion-group>
+    <script type="text/javascript" src="tab1.page.ts"></script>
     <ion-list>
       <ion-item>
         <ion-select
-          [compareWith]="compareWith"
-          placeholder="Filter Nutrient"
-          (ionChange)="changeNutrient($event)"
+        [compareWith]="compareWith"
+        placeholder="Filter Nutrient"
+        (ionChange)="changeNutrient($event)"
         >
-          <ion-select-option *ngFor="let nutrient of nutrients" [value]="nutrient">{{ nutrient.name }}</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <!-- <ion-item>
-        <ion-label>Sort By</ion-label>
-        <ion-select 
-          [interfaceOptions]="sortResultsSheetOption" 
-          interface="action-sheet" 
-          placeholder="Sort By"
-          (ionChange)="changeSortOption($event)"
-        >
-          <ion-select-option value="asc">ASC</ion-select-option>
-          <ion-select-option value="desc">DESC</ion-select-option>
-        </ion-select>
-      </ion-item> -->
-    </ion-list>
+        <ion-select-option *ngFor="let nutrient of nutrients" [value]="nutrient">{{ nutrient.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
     
-    <ion-accordion value="first" *ngFor="let item of foods" (click)="showOneEntry(item)">
-      <ion-item slot="header" color="light">
-        <ion-label>{{ item.name }}</ion-label>
-      </ion-item>
+    <!-- <ion-item>
+      <ion-label>Sort By</ion-label>
+      <ion-select 
+      [interfaceOptions]="sortResultsSheetOption" 
+      interface="action-sheet" 
+      placeholder="Sort By"
+      (ionChange)="changeSortOption($event)"
+      >
+      <ion-select-option value="asc">ASC</ion-select-option>
+      <ion-select-option value="desc">DESC</ion-select-option>
+    </ion-select>
+  </ion-item> -->
+</ion-list>
 
-      <div class="ion-padding" slot="content" *ngIf="selected === item.id">
-        {{ item.id }}
+<ion-accordion value="first" *ngFor="let item of foods" (click)="showOneEntry(item)">
+  <ion-item slot="header" color="light">
+    <ion-label>{{ item.name }}</ion-label>
+  </ion-item>
+  
+  <div class="ion-padding" slot="content" *ngIf="selected === item.id">
+    {{ item.id }}
+    
+    <p *ngFor="let info of item.nutrients">
+      <li> {{ info.amount }}{{ info.unitName }} {{ info.name }}   </li>
+    </p>
+    <ion-button (click)="add_food(item)">add item</ion-button>
+  </div>
 
-        <p *ngFor="let info of item.nutrients">
-          <li> {{ info.amount }}{{ info.unitName }} {{ info.name }}   </li>
-        </p>
-      </div>
     </ion-accordion>
   </ion-accordion-group>
 
 </ion-content>
+
+

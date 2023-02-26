@@ -32,6 +32,29 @@
     </ion-card-header>
   </ion-card>
 
+  <p style="font-size: 14px; line-height: 1;">
+    Today: {{total_macros['energy']}}g calories, {{total_macros['protein']}}g protein, {{total_macros['carbs']}}g carbs, {{total_macros['fat']}}g fat
+  </p>
+  <br>
+  <div *ngFor="let info of food_list; let i = index">
+    <div style="border-radius: 25px; border: 1px solid #3c3d3a;">
+        <p style="line-height: .8; font-weight: bold; max-width: 50ch; overflow: hidden; font-size: 10px; text-overflow: ellipsis;">
+          {{info.name}}
+        </p>
+        <p style="font-size: 12px; line-height: .4;">
+          Calories: {{macro_list[i]['energy']}}
+        </p>
+        <p style="font-size: 12px; line-height: .4;">
+          Protein: {{macro_list[i]['protein']}}
+        </p>
+        <p style="font-size: 12px; line-height: .4;">
+          Carbs: {{macro_list[i]['carbs']}}
+        </p>
+        <p style="font-size: 12px; line-height: .4;">
+          Fats: {{macro_list[i]['fat']}}
+        </p>
+      </div>
+  </div>
 
   
 
