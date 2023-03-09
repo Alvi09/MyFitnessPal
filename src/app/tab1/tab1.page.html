@@ -41,26 +41,27 @@
       <ion-select-option value="asc">ASC</ion-select-option>
       <ion-select-option value="desc">DESC</ion-select-option>
     </ion-select>
-  </ion-item> -->
-</ion-list>
+    </ion-item> -->
+    </ion-list>
 
-<ion-accordion value="first" *ngFor="let item of foods" (click)="showOneEntry(item)">
-  <ion-item slot="header" color="light">
-    <ion-label>{{ item.name }}</ion-label>
-  </ion-item>
-  
-  <div class="ion-padding" slot="content" *ngIf="selected === item.id">
-    {{ item.id }}
-    
-    <p *ngFor="let info of item.nutrients">
-      <li> {{ info.amount }}{{ info.unitName }} {{ info.name }}   </li>
-    </p>
-    <ion-button (click)="add_food(item)">add item</ion-button>
-  </div>
+    <ion-accordion value="first" *ngFor="let item of foods" (click)="showOneEntry(item)">
+      <ion-item slot="header" color="light">
+        <ion-label>{{ item.name }}</ion-label>
+      </ion-item>
+      
+      <div class="ion-padding" slot="content" *ngIf="selected === item.id">
+        {{ item.id }}
+        
+        <p *ngFor="let info of item.nutrients">
+          <li> {{ info.amount }}{{ info.unitName }} {{ info.name }}   </li>
+        </p>
 
+        <div class="add-item-btn">
+          <ion-button (click)="add_food(item)"> Add item </ion-button>
+        </div>
+      </div>
     </ion-accordion>
   </ion-accordion-group>
-
 </ion-content>
 
 

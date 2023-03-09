@@ -25,40 +25,30 @@
   <ion-card *ngIf="!informationEntered">
     <ion-card-header *ngIf="userInfo[0].gender == 'male' || userInfo[0].gender == 'female'">
       <ion-card-title> Recommended macros for {{userInfo[0].name}} to {{ userInfo[0].goal }}</ion-card-title>
-      <ion-card-subtitle>Calories: {{ calories }}</ion-card-subtitle>
-      <ion-card-subtitle>Protein: {{ protein }}g</ion-card-subtitle>
-      <ion-card-subtitle>Carbohydrates: {{ carbs }}g</ion-card-subtitle>
-      <ion-card-subtitle>Fat: {{ fat }}g</ion-card-subtitle>
+      <ion-card-subtitle> Calories: {{calories}}</ion-card-subtitle>
+      <ion-card-subtitle> Protein: {{protein}}g</ion-card-subtitle>
+      <ion-card-subtitle> Carbohydrates: {{carbs}}g</ion-card-subtitle>
+      <ion-card-subtitle> Fat: {{fat}}g</ion-card-subtitle>
     </ion-card-header>
   </ion-card>
 
-  <p style="font-size: 14px; line-height: 1;">
-    Today: {{total_macros['energy']}}g calories, {{total_macros['protein']}}g protein, {{total_macros['carbs']}}g carbs, {{total_macros['fat']}}g fat
+  <p class="macro-styling">
+    <strong> Today's Macros: </strong> <br>
+    <strong>{{total_macros['energy'] | number :'1.1-1'}}g</strong> Calories <br>
+    <strong>{{total_macros['protein'] | number : '1.1-1'}}g</strong> Protein <br>
+    <strong>{{total_macros['carbs'] | number : '1.1-1'}}g</strong> Carbs <br>
+    <strong>{{total_macros['fat'] | number : '1.1-1'}}g</strong> Fat <br>
   </p>
-  <br>
+
   <div *ngFor="let info of food_list; let i = index">
-    <div style="border-radius: 25px; border: 1px solid #3c3d3a;">
-        <p style="line-height: .8; font-weight: bold; max-width: 50ch; overflow: hidden; font-size: 10px; text-overflow: ellipsis;">
-          {{info.name}}
-        </p>
-        <p style="font-size: 12px; line-height: .4;">
-          Calories: {{macro_list[i]['energy']}}
-        </p>
-        <p style="font-size: 12px; line-height: .4;">
-          Protein: {{macro_list[i]['protein']}}
-        </p>
-        <p style="font-size: 12px; line-height: .4;">
-          Carbs: {{macro_list[i]['carbs']}}
-        </p>
-        <p style="font-size: 12px; line-height: .4;">
-          Fats: {{macro_list[i]['fat']}}
+    <div>
+        <p class="macro-styling">
+          <strong> {{info.name}} </strong> <br>
+          Calories: {{macro_list[i]['energy']}}g <br>
+          Protein: {{macro_list[i]['protein']}}g <br>
+          Carbs: {{macro_list[i]['carbs']}}g <br>
+          Fats: {{macro_list[i]['fat']}}g <br>
         </p>
       </div>
   </div>
-
-  
-
-
-  
-
 </ion-content>
