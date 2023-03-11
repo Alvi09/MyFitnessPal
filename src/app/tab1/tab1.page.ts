@@ -93,10 +93,9 @@ export class Tab1Page implements OnInit {
     const raw_query = (searchQuery.target as HTMLInputElement).value;
     console.log(`search query: ${raw_query}`);
 
-    const query = raw_query.replace(/ /g, '%20');
+    const query = raw_query.replace(/ /g, '+');
 
     this.tab1Service.getFoodsList(query).subscribe((res: any) => {
-      loading.dismiss();
       console.log('response', res);
 
       Object.keys(res).forEach((key: any) => {
@@ -125,7 +124,8 @@ export class Tab1Page implements OnInit {
       
       console.log('results', this.foods);
       console.log('nutrients', this.nutrients);
-
+      
+      loading.dismiss();
     });
   };
 
