@@ -4,9 +4,6 @@ import { Tab2Service } from './tab2.service';
 import { NavController } from '@ionic/angular';
 
 
-const page_numbers = 5;
-
-
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -16,11 +13,14 @@ const page_numbers = 5;
 
 export class Tab2Page implements OnInit {
   // https://en.wikipedia.org/wiki/List_of_diets
-  public diets = ["Low calorie diet", "Low carbohydrate diet", "Low fat diet", "Keto diet", "GERD diet"];
-  public results = [...this.diets];
+  public diet_options = ["Low calorie diet", "Low carbohydrate diet", "Low fat diet", "Keto diet", "GERD diet"];
+  public diets = [...this.diet_options];
   public foods_data: any = {};
   public food_categories: Array<String> = [];
   public recommended_results: any = {};
+  public recommended_results_display: any[] = [];
+  diet_clickedButton = false;
+  chosen_diet = "";
 
   constructor(private tab2Service: Tab2Service, private loadingCtrl: LoadingController, private navController: NavController) {}
 
@@ -61,21 +61,22 @@ export class Tab2Page implements OnInit {
 
       // console.log('food_categories', this.food_categories)
     }
+
     loading.dismiss();
     console.log("foods", this.foods_data);
   }
 
   // nutritional amounts are based on every 100 grams of that food
   async getRecommendations(event: any) {
-    const chosen_diet = event.target.innerText
+    this.chosen_diet = event.target.innerText
     var diet_type = "low";
-    console.log(chosen_diet);
+    console.log(this.chosen_diet);
 
-    if (chosen_diet.toLowerCase().includes("low")) {
+    if (this.chosen_diet.toLowerCase().includes("low")) {
       diet_type = "low";
     } 
     
-    if (chosen_diet.toLowerCase().includes("keto")) {
+    if (this.chosen_diet.toLowerCase().includes("keto")) {
       diet_type = "keto";
     }
     
@@ -94,7 +95,6 @@ export class Tab2Page implements OnInit {
 
       console.log(foodCategory, foods_list)
 
-      // low calorie diet (sort foods by calorie in ascending order)
       for (var food in foods_list) {
         const foodNutrients = foods_list[food].nutrients;
         let nutrient_amount = 0;
@@ -102,7 +102,7 @@ export class Tab2Page implements OnInit {
   
         for (var key in foodNutrients) {
           // low calorie diet
-          if (chosen_diet.toLowerCase() === "low calorie diet") {
+          if (this.chosen_diet.toLowerCase() === "low calorie diet") {
             if (foodNutrients[key].unitName == 'KCAL') {
               nutrient_amount = foodNutrients[key].value;
               grams_amount = 100;
@@ -112,7 +112,7 @@ export class Tab2Page implements OnInit {
           }
 
           // low carbohydrate diet
-          if (chosen_diet.toLowerCase() === "low carbohydrate diet") {
+          if (this.chosen_diet.toLowerCase() === "low carbohydrate diet") {
             if (foodNutrients[key].nutrientName == 'Carbohydrate, by difference') {
               nutrient_amount = foodNutrients[key].value;
               grams_amount = 100;
@@ -122,7 +122,7 @@ export class Tab2Page implements OnInit {
           }
 
           // low fat and gerd diet
-          if (chosen_diet.toLowerCase() === "low fat diet" || chosen_diet.toLowerCase() === "gerd diet") {
+          if (this.chosen_diet.toLowerCase() === "low fat diet" || this.chosen_diet.toLowerCase() === "gerd diet") {
             if (foodNutrients[key].nutrientName == 'Total fat (NLEA)') {
               nutrient_amount = foodNutrients[key].value;
               grams_amount = 100;
@@ -132,7 +132,7 @@ export class Tab2Page implements OnInit {
           }
 
           // keto diet (high fat, moderate protein, very low carbs)
-          if (chosen_diet.toLowerCase() === "keto diet") {
+          if (this.chosen_diet.toLowerCase() === "keto diet") {
             if (foodNutrients[key].nutrientName == 'Total lipid (fat)') {
               nutrient_amount = foodNutrients[key].value;
               grams_amount = 100;
@@ -160,17 +160,25 @@ export class Tab2Page implements OnInit {
       })
     }
 
-    console.log('recommended results', this.recommended_results);
+    for (var k in this.recommended_results) {
+      // extract top n results
+      this.recommended_results[k] = this.recommended_results[k].slice(0, 3);
 
+      for (var foodk of this.recommended_results[k]) {
+        this.recommended_results_display.push(foodk);
+      }
+    }
+
+    console.log('recommended results', this.recommended_results);
     loading.dismiss();
 
     // redirect to a separate page that will display the recommendation results
-    this.navController.navigateForward('/tabs/tab1')
+    this.diet_clickedButton = true;
   };
 
   searchFilter(event: any) {
     const query = event.target.value.toLowerCase();
-    this.results = this.diets.filter(d => d.toLowerCase().indexOf(query) > -1);
+    this.diets = this.diet_options.filter(d => d.toLowerCase().indexOf(query) > -1);
   }
 
   sleep() {
