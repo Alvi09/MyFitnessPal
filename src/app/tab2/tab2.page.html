@@ -40,11 +40,26 @@
     </ion-card-header>
   </ion-card>
 
+  <ion-list-header>
+    <ion-label>Foods</ion-label>
+  </ion-list-header>
   
   <!-- work on displaying results by category -->
   <ion-list type="list-inset" *ngFor="let food of recommended_results_display">
     <ion-item>
-      <ion-label> {{ food.name }} </ion-label>
+      <ion-label class="ion-text-wrap"> {{ food.name }} </ion-label>
+
+      <br><br/>
+
+      <div class="show-details-btn">
+        <ion-button (click)="showDetails(food.name, food.foodCategory)"> See Details </ion-button>
+      </div>
+
+      <br><br/>
+
+      <div class="add-item-btn">
+        <ion-button (click)="add_food(food)"> Add Food </ion-button>
+      </div>
     </ion-item>
   </ion-list>
 

@@ -1,8 +1,13 @@
+.show-details-btn {
+    display: flex;
+    justify-content: center;
+}
+
 .add-item-btn {
     display: flex;
     justify-content: center;
 }
 
 ion-button {
-    width: 80%;
+    width: 100%;
 }

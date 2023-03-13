@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Tab2Service } from './tab2.service';
 import { NavController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+
 
 
 @Component({
@@ -19,10 +21,22 @@ export class Tab2Page implements OnInit {
   public food_categories: Array<String> = [];
   public recommended_results: any = {};
   public recommended_results_display: any[] = [];
+  public food_list: any[] = [];
+  public macro_list: any[] = [];
+  public total_macros = {"energy": 0, "protein": 0, "carbs": 0, "fat": 0}
   diet_clickedButton = false;
   chosen_diet = "";
 
-  constructor(private tab2Service: Tab2Service, private loadingCtrl: LoadingController, private navController: NavController) {}
+
+  constructor(private tab2Service: Tab2Service, private loadingCtrl: LoadingController, private navController: NavController, private alertController: AlertController) {}
+  navigateToPage3() {
+    this.navController.navigateForward('tabs/tab3', {
+      queryParams: { food_list: this.food_list,
+                      macro_list: this.macro_list,
+                      total_macros: this.total_macros},
+    });
+  }
+
 
   // load all data before any actions take place
   async ngOnInit() {
@@ -179,6 +193,60 @@ export class Tab2Page implements OnInit {
   searchFilter(event: any) {
     const query = event.target.value.toLowerCase();
     this.diets = this.diet_options.filter(d => d.toLowerCase().indexOf(query) > -1);
+  }
+
+  async showDetails(foodName: any, foodCategory: any) {
+    // console.log(foodName);
+    // console.log(foodCategory);
+
+    var details_msg = ""
+    for (var food of this.recommended_results[foodCategory]) {
+      for (var nutrient of food.nutrients) {
+        details_msg = details_msg + `${nutrient.nutrientName} - ${nutrient.value} ${nutrient.unitName} <br/>`
+      }
+    }
+
+    const alert = await this.alertController.create({
+      header: foodName,
+      subHeader: foodCategory,
+      buttons: ['Ok'],
+      message: details_msg
+    });
+
+    await alert.present();
+  }
+
+  add_food = (item: any) => {
+    this.food_list.push(item);
+    let macro = {
+      "energy": 0,
+      "protein": 0,
+      'carbs': 0,
+      'fat': 0
+    };
+    console.log(this.food_list)
+    console.log(item.nutrients)
+    for (let i = 0; i < item.nutrients.length; i++) {
+      if (item.nutrients[i].nutrientName == "Energy") {
+        macro['energy'] = item.nutrients[i].value
+        this.total_macros['energy'] += item.nutrients[i].value;
+      }
+      else if (item.nutrients[i].nutrientName == "Carbohydrate, by difference") {
+        this.total_macros['carbs'] += item.nutrients[i].value;
+        macro['carbs'] = item.nutrients[i].value
+      }
+      else if (item.nutrients[i].nutrientName == "Protein") {
+        this.total_macros['protein'] += item.nutrients[i].value;
+        macro['protein'] = item.nutrients[i].value
+      }
+      else if (item.nutrients[i].nutrientName == "Total lipid (fat)") {
+        this.total_macros['fat'] += item.nutrients[i].value;
+        macro['fat'] = item.nutrients[i].value
+      }
+    } 
+
+    this.macro_list.push(macro);
+    this.navigateToPage3();
   }
 
   sleep() {
