@@ -35,4 +35,7 @@ For any concerns, feel free to reach out by .
 
 
 ## Acknowledgements
-
+icons: 
+<a href="https://www.flaticon.com/free-icons/weight-loss" title="weight loss icons">Weight loss icons created by Khoirul Huda - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/robust" title="robust icons">Robust icons created by Muhammad_Usman - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/law" title="law icons">Law icons created by IconMarketPK - Flaticon</a>

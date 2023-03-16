@@ -3,6 +3,9 @@
     <ion-title>
       Me
     </ion-title>
+    <div class="profile-pic-container" *ngIf="!informationEntered">
+      <img [src]="getProfilePic()" alt="Profile Picture" class="profile-pic">
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -24,11 +27,11 @@
   
   <ion-card *ngIf="!informationEntered">
     <ion-card-header *ngIf="userInfo[0].gender == 'male' || userInfo[0].gender == 'female'">
-      <ion-card-title> Recommended macros for {{userInfo[0].name}} to {{ userInfo[0].goal }}</ion-card-title>
-      <ion-card-subtitle> Calories: {{calories}}</ion-card-subtitle>
-      <ion-card-subtitle> Protein: {{protein}}g</ion-card-subtitle>
-      <ion-card-subtitle> Carbohydrates: {{carbs}}g</ion-card-subtitle>
-      <ion-card-subtitle> Fat: {{fat}}g</ion-card-subtitle>
+      <ion-card-title class="bold"> Recommended Macros for {{userInfo[0].name}} to {{ userInfo[0].goal }}</ion-card-title>
+      <ion-card-subtitle class="bold"> Calories: {{calories}}</ion-card-subtitle>
+      <ion-card-subtitle class="bold"> Protein: {{protein}}g</ion-card-subtitle>
+      <ion-card-subtitle class="bold"> Carbohydrates: {{carbs}}g</ion-card-subtitle>
+      <ion-card-subtitle class="bold"> Fat: {{fat}}g</ion-card-subtitle>
     </ion-card-header>
   </ion-card>
 
@@ -51,4 +54,23 @@
         </p>
       </div>
   </div>
+  <style>
+    .bold {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .profile-pic-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+  }
+
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  </style>
 </ion-content>

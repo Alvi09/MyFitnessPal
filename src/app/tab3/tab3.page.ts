@@ -9,6 +9,8 @@ import { Directive, Output, EventEmitter, Input, SimpleChange} from '@angular/co
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
+
+
 export class Tab3Page {
   userInfo: any[] = [];
   informationEntered = true
@@ -128,4 +130,14 @@ export class Tab3Page {
       
       await alert.present();
   }
+  getProfilePic() {
+    if (this.userInfo[0].goal === 'loss') {
+      return '../../assets/icon/weight-loss.png';
+    } else if (this.userInfo[0].goal === 'maintain') {
+      return '../../assets/icon/justice-scale.png';
+    } else {
+      return '../../assets/icon/muscles.png';
+    }
+  }
+  
 }
