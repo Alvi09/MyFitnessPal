@@ -2,7 +2,7 @@
 CS 125 Project
 
 ## Description
-A web application created using the [Ionic Framework](https://ionicframework.com/).
+A web application to track user fitness goals and provide food recomendations. Created using the [Ionic Framework](https://ionicframework.com/).
 
 ## Getting Started
 ### Dependencies
