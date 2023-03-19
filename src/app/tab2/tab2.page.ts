@@ -15,7 +15,7 @@ import { AlertController } from '@ionic/angular';
 
 export class Tab2Page implements OnInit {
   // https://en.wikipedia.org/wiki/List_of_diets
-  public diet_options = ["Low calorie diet", "Low carbohydrate diet", "Low fat diet", "Keto diet", "GERD diet"];
+  public diet_options = ["Low calorie diet", "Low carbohydrate diet", "Low fat diet", "Keto diet", "GERD diet", "Lactose-free diet"];
   public diets = [...this.diet_options];
   public foods_data: any = {};
   public food_categories: Array<String> = [];
@@ -47,7 +47,7 @@ export class Tab2Page implements OnInit {
     await loading.present();
 
     for (var i = 0; i < 5; i++) {
-      // await this.sleep();
+      await this.sleep(500);
 
       this.tab2Service.getFoundationFoods(i+1).subscribe((res: any) => {
         const food_results = res['foods'];
@@ -99,7 +99,7 @@ export class Tab2Page implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
-    await this.sleep();
+    await this.sleep(3000);
 
     this.recommended_results = this.foods_data;
 
@@ -148,6 +148,16 @@ export class Tab2Page implements OnInit {
           // keto diet (high fat, moderate protein, very low carbs)
           if (this.chosen_diet.toLowerCase() === "keto diet") {
             if (foodNutrients[key].nutrientName == 'Total lipid (fat)') {
+              nutrient_amount = foodNutrients[key].value;
+              grams_amount = 100;
+  
+              break;
+            }
+          }
+
+          // lactose-free diet
+          if (this.chosen_diet.toLowerCase() === "lactose-free diet") {
+            if (foodNutrients[key].nutrientName == 'Lactose' && foodNutrients[key].value === 0) {
               nutrient_amount = foodNutrients[key].value;
               grams_amount = 100;
   
@@ -249,8 +259,20 @@ export class Tab2Page implements OnInit {
     this.navigateToPage3();
   }
 
-  sleep() {
-    return new Promise(resolve => setTimeout(resolve, 3000));
+  async goBack() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Going back...',
+      spinner: 'bubbles',
+    });
+    await loading.present();
+    await this.sleep(1000);
+
+    this.diet_clickedButton = false;
+    await loading.dismiss();
+  };
+
+  sleep(time: number) {
+    return new Promise(resolve => setTimeout(resolve, time));
   }
 
 }

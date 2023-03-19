@@ -33,6 +33,10 @@
 
 
 <ion-content *ngIf="diet_clickedButton" [fullscreen]="true">
+  <div class="go-back-btn">
+    <ion-button (click)="goBack()" expand="block" size="small"> Go Back </ion-button>
+  </div>
+
   <ion-card>
     <ion-card-header>
       <ion-card-title> {{ chosen_diet }} </ion-card-title>
@@ -44,7 +48,6 @@
     <ion-label>Foods</ion-label>
   </ion-list-header>
   
-  <!-- work on displaying results by category -->
   <ion-list type="list-inset" *ngFor="let food of recommended_results_display">
     <ion-item>
       <ion-label class="ion-text-wrap"> {{ food.name }} </ion-label>
