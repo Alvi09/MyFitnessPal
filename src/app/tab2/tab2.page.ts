@@ -15,14 +15,14 @@ import { AlertController } from '@ionic/angular';
 
 export class Tab2Page implements OnInit {
   // https://en.wikipedia.org/wiki/List_of_diets
-  public diet_options = ["Low calorie diet", "Low carbohydrate diet", "Low fat diet", "Keto diet", "GERD diet", "Lactose-free diet"];
+  public diet_options = ["Low calorie diet", "Low carbohydrate diet", "Low fat diet", "Keto diet", "GERD diet", "Lactose-free diet"];  // list of possible diets to choose from
   public diets = [...this.diet_options];
-  public foods_data: any = {};
-  public food_categories: Array<String> = [];
-  public recommended_results: any = {};
-  public recommended_results_display: any[] = [];
-  public food_list: any[] = [];
-  public macro_list: any[] = [];
+  public foods_data: any = {};                     // dynamic object to hold data of foods provided by API response
+  public food_categories: Array<String> = [];      // list of possible food categories 
+  public recommended_results: any = {};            // dynamic object to hold the recommendations based on chosen diet
+  public recommended_results_display: any[] = [];  // helper dynamic object to to show the recommendations on display for the user
+  public food_list: any[] = [];                    // dynamic object to hold foods that the user adds to their list
+  public macro_list: any[] = [];                   // list of macros pertaining to the user
   public total_macros = {"energy": 0, "protein": 0, "carbs": 0, "fat": 0}
   diet_clickedButton = false;
   chosen_diet = "";
@@ -46,9 +46,11 @@ export class Tab2Page implements OnInit {
     });
     await loading.present();
 
+    // going through all possible pages of data to extract generic foods and their details
     for (var i = 0; i < 5; i++) {
       await this.sleep(500);
-
+      
+      // grab response from tab2.service.ts
       this.tab2Service.getFoundationFoods(i+1).subscribe((res: any) => {
         const food_results = res['foods'];
         // console.log(food_results);
@@ -176,9 +178,7 @@ export class Tab2Page implements OnInit {
           return a.sortHelper - b.sortHelper
         }
 
-        if (diet_type === "keto") {
-          // https://stackoverflow.com/questions/6913512/how-to-sort-an-array-of-objects-by-multiple-fields
-        }
+        // possible future improvement to use multiple sorting for certain diets
 
         return b.sortHelper - a.sortHelper;
       })
@@ -200,11 +200,13 @@ export class Tab2Page implements OnInit {
     this.diet_clickedButton = true;
   };
 
+  // helper function to filter search results while user types in query
   searchFilter(event: any) {
     const query = event.target.value.toLowerCase();
     this.diets = this.diet_options.filter(d => d.toLowerCase().indexOf(query) > -1);
   }
 
+  // show details of foods
   async showDetails(foodName: any, foodCategory: any) {
     // console.log(foodName);
     // console.log(foodCategory);
@@ -226,6 +228,7 @@ export class Tab2Page implements OnInit {
     await alert.present();
   }
 
+  // add food to user list for macro calculations
   add_food = (item: any) => {
     this.food_list.push(item);
     let macro = {
@@ -259,6 +262,7 @@ export class Tab2Page implements OnInit {
     this.navigateToPage3();
   }
 
+  // function to reset page material
   async goBack() {
     const loading = await this.loadingCtrl.create({
       message: 'Going back...',
@@ -271,6 +275,7 @@ export class Tab2Page implements OnInit {
     await loading.dismiss();
   };
 
+  // sleep function for timing purposes and giving time for API to make calls
   sleep(time: number) {
     return new Promise(resolve => setTimeout(resolve, time));
   }

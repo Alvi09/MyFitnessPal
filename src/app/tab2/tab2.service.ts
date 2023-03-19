@@ -24,7 +24,7 @@ export class Tab2Service {
     // search:    https://fdc.nal.usda.gov/fdc-app.html#/
     
     getFoundationFoods(pageNumber: Number): Observable<any> {
-      const url = `${base_url}${endpoint}?api_key=${api_key}&dataType=${data_type}&pageNumber=${pageNumber}`;
+      const url = `${base_url}${endpoint}?api_key=${api_key}&dataType=${data_type}&pageNumber=${pageNumber}`;  // build url
       // console.log(`url: ${url}`);
 
       return this.http.get(url);

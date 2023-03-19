@@ -6,6 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- show certain material if user hasn't chose a diet -->
 <ion-content *ngIf="!diet_clickedButton" [fullscreen]="true">
   <ion-card>
     <ion-card-header>
@@ -14,10 +15,12 @@
     </ion-card-header>
   </ion-card>
   
+  <!-- filter shown results while user types in search bar -->
   <ion-searchbar show-clear-button="always" debounce="1000" show-cancel-button="focus" 
                  (ionChange)="searchFilter($event)" placeholder="Search for a diet!"> 
   </ion-searchbar>
   
+  <!-- show all the possible diets -->
   <ion-accordion-group>
     <script type="text/javascript" src="tab2.page.ts"></script>
 
@@ -26,12 +29,12 @@
         <ion-button expand="block" shape="round" fill="solid" (click)="getRecommendations($event)">{{ diet }}</ion-button>
       </ion-item>
     </ion-list>
-
     
   </ion-accordion-group>
 </ion-content>
 
 
+<!-- show certain material if user has chosen a diet -->
 <ion-content *ngIf="diet_clickedButton" [fullscreen]="true">
   <div class="go-back-btn">
     <ion-button (click)="goBack()" expand="block" size="small"> Go Back </ion-button>
@@ -54,12 +57,14 @@
 
       <br><br/>
 
+      <!-- show details of food item -->
       <div class="show-details-btn">
         <ion-button (click)="showDetails(food.name, food.foodCategory)"> See Details </ion-button>
       </div>
 
       <br><br/>
 
+      <!-- add food to user list -->
       <div class="add-item-btn">
         <ion-button (click)="add_food(food)"> Add Food </ion-button>
       </div>

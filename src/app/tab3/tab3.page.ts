@@ -12,8 +12,8 @@ import { Directive, Output, EventEmitter, Input, SimpleChange} from '@angular/co
 
 
 export class Tab3Page {
-  userInfo: any[] = [];
-  informationEntered = true
+  userInfo: any[] = [];      // object to hold user information (name, age, height-cm, weight-kg, gender, goal)
+  informationEntered = true  // check if information has been entered in order to show content
   calories = 0
   protein = 0
   carbs = 0

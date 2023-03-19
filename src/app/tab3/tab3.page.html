@@ -16,12 +16,14 @@
     </ion-toolbar>
   </ion-header> -->
 
+  <!-- show contents of page based on if information has been entered or not -->
   <ion-card *ngIf="informationEntered">
     <ion-card-header>
       <ion-card-title> User Information </ion-card-title>
       <ion-card-subtitle> Let's gather some quick information about you!</ion-card-subtitle>
     </ion-card-header>
     
+    <!-- button click to prompt for user to enter information (name, age, weight, goal, etc.) -->
     <ion-button color="primary" fill="clear" (click)="enter_info()">Enter my information </ion-button>
   </ion-card>
   
@@ -43,6 +45,7 @@
     <strong>{{total_macros['fat'] | number : '1.1-1'}}g</strong> Fat <br>
   </p>
 
+  <!-- show list of foods user has added -->
   <div *ngFor="let info of food_list; let i = index">
     <div>
         <p class="macro-styling">

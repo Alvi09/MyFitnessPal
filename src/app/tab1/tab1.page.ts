@@ -12,14 +12,15 @@ import { NavController } from '@ionic/angular';
 
 
 export class Tab1Page implements OnInit {
-  foods: any[] = [];
-  currentNutrient = undefined;
-  nutrients: any[] = [];
-  food_list: any[] = [];
-  macro_list: any[] = [];
+  foods: any[] = [];            // dynamic object to hold food data
+  currentNutrient = undefined;  // track the nutrient that is being filtered from search results
+  nutrients: any[] = [];        // dynamic object to hold all possible nutrients
+  food_list: any[] = [];        // dynamic object to hold foods that the user adds to their list
+  macro_list: any[] = [];       // list of macros pertaining to the user
   total_macros = {"energy": 0, "protein": 0, "carbs": 0, "fat": 0}
   
 
+  // allow user to add a certain food to their stored list
   add_food = (item: any) => {
     this.food_list.push(item);
     let macro = {
@@ -28,7 +29,8 @@ export class Tab1Page implements OnInit {
       'carbs': 0,
       'fat': 0
     };
-    console.log(this.food_list)
+    console.log(this.food_list);
+
     for (let i = 0; i < item.nutrients.length; i++) {
       if (item.nutrients[i].name == "Energy") {
         macro['energy'] = item.nutrients[i].amount
@@ -47,21 +49,15 @@ export class Tab1Page implements OnInit {
         macro['fat'] = item.nutrients[i].amount
       }
     } 
-    this.macro_list.push(macro)
+    this.macro_list.push(macro);
     this.navigateToPage3();
   }
 
   selected = 0;
   currentPage = 1;
-  sortingOrder = 'desc'
-
-  sortResultsSheetOption = {
-    header: 'Sort Options',
-    subHeader: 'Select a sorting option',
-  }
-
 
   constructor(private tab1Service: Tab1Service, private loadingCtrl: LoadingController, private navController: NavController) {}
+
   navigateToPage3() {
     this.navController.navigateForward('tabs/tab3', {
       queryParams: { food_list: this.food_list,
@@ -70,7 +66,6 @@ export class Tab1Page implements OnInit {
     });
   }
   
-
   ngOnInit()  {
     this.navigateToPage3();
   }
@@ -79,7 +74,8 @@ export class Tab1Page implements OnInit {
     this.selected = item.id;
   }
 
-  
+  // grab data from USDA FoodData Central API
+  // params are defined in tab1.service.ts
   async getData(searchQuery: Event) {    
     this.foods = [];
     this.nutrients = [];
@@ -90,14 +86,16 @@ export class Tab1Page implements OnInit {
     });
     await loading.present()
 
-    const raw_query = (searchQuery.target as HTMLInputElement).value;
+    const raw_query = (searchQuery.target as HTMLInputElement).value;  // grab query from user
     console.log(`search query: ${raw_query}`);
 
+    // replace spaces with + or %20 for url purposes
     const query = raw_query.replace(/ /g, '+');
 
     this.tab1Service.getFoodsList(query).subscribe((res: any) => {
       console.log('response', res);
-
+      
+      // extract details from the API response
       Object.keys(res).forEach((key: any) => {
         const id = res[key].fdcId;
         const name = res[key].description;
@@ -129,16 +127,16 @@ export class Tab1Page implements OnInit {
     });
   };
 
+  // helper function for showing one result at a time when clicking 
   compareWith(o1: any, o2: any) {
     return o1 && o2 ? o1.name === o2.name : o1 === o2;
   }
-
+  
   changeNutrient(ev: any) {
     this.currentNutrient = ev.target.value;
     const targetNutrient = ev.target.value;
 
     console.log(`nutrient to filter: ${targetNutrient.name}`);
-    // console.log(`sort order: ${this.sortingOrder}`)  // work on sorting order if have time
     
     for (var food in this.foods) {
       const foodNutrients = this.foods[food].nutrients;

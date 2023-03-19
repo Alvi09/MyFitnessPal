@@ -17,6 +17,7 @@
   
   <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
   
+  <!-- group of items to hold nutrient categories and filtering -->
   <ion-accordion-group>
     <script type="text/javascript" src="tab1.page.ts"></script>
     <ion-list>
@@ -29,21 +30,9 @@
           <ion-select-option *ngFor="let nutrient of nutrients" [value]="nutrient">{{ nutrient.name }}</ion-select-option>
         </ion-select>
       </ion-item>
-    
-    <!-- <ion-item>
-      <ion-label>Sort By</ion-label>
-      <ion-select 
-      [interfaceOptions]="sortResultsSheetOption" 
-      interface="action-sheet" 
-      placeholder="Sort By"
-      (ionChange)="changeSortOption($event)"
-      >
-      <ion-select-option value="asc">ASC</ion-select-option>
-      <ion-select-option value="desc">DESC</ion-select-option>
-    </ion-select>
-    </ion-item> -->
     </ion-list>
 
+    <!-- method to extract food from the data stored in tab1.page.ts and display results to user -->
     <ion-accordion value="first" *ngFor="let item of foods" (click)="showOneEntry(item)">
       <ion-item slot="header" color="light">
         <ion-label>{{ item.name }}</ion-label>
@@ -53,9 +42,10 @@
         {{ item.id }}
         
         <p *ngFor="let info of item.nutrients">
-          <li> {{ info.amount }}{{ info.unitName }} {{ info.name }}   </li>
+          <li> {{ info.amount }} {{ info.unitName }} {{ info.name }}   </li>
         </p>
 
+        <!-- user can add food to their list of items, located in page3 (Me Page) -->
         <div class="add-item-btn">
           <ion-button (click)="add_food(item)"> Add Food </ion-button>
         </div>
