@@ -23,7 +23,7 @@ npm install
 ```
 
 ### Execution
-Assuming all packages and dependencies are installed correctly, you may build and run the program with the following commands: 
+Assuming all packages and dependencies are installed correctly, you may run and view the program in a localhost server with the following commands: 
 ```
 ionic lab
 ```
