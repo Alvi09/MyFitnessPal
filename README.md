@@ -29,10 +29,13 @@ ionic lab
 ```
 
 ## Help
-For any concerns, feel free to reach out by .
+For any concerns, feel free to reach out by [email](dinhjd@uci.edu).
 
 ## Authors and Contributors
-
+Johnson Du Dinh
+Alvin Ly
+Tyler Cheng
+Alan Yi
 
 ## Acknowledgements
 icons: 
