@@ -1,5 +1,5 @@
 # Website
-CS 125 Project
+CS 125 Project - Fitness For Life
 
 ## Description
 A web application to track user fitness goals and provide food recomendations. Created using the [Ionic Framework](https://ionicframework.com/).
