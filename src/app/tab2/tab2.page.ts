@@ -240,7 +240,10 @@ export class Tab2Page implements OnInit {
     console.log(this.food_list)
     console.log(item.nutrients)
     for (let i = 0; i < item.nutrients.length; i++) {
-      if (item.nutrients[i].nutrientName == "Energy") {
+      if (item.nutrients[i].nutrientName == "Energy" && item.nutrients[i].unitName == "kJ") {
+        // console.log(item.nutrients[i].nutrientName);
+        // console.log(item.nutrients[i].unitName);
+        // console.log(item.nutrients[i].value)
         macro['energy'] = item.nutrients[i].value
         this.total_macros['energy'] += item.nutrients[i].value;
       }
