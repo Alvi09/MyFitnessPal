@@ -1,17 +1,27 @@
 .show-details-btn {
-    display: flex;
-    justify-content: center;
+    // display: flex;
+    // justify-content: center;
 }
 
 .add-item-btn {
-    display: flex;
-    justify-content: center;
+    // display: flex;
+    // justify-content: center;
 }
 
 .go-back-btn {
-    width: 25%;
+    width: 30%;
 }
 
 ion-button {
     width: 100%;
+}
+
+.food-name-container {
+    width: 100%;
+}
+
+.food-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
 }

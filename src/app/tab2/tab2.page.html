@@ -26,7 +26,7 @@
 
     <ion-list *ngIf="!diet_clickedButton">
       <ion-item *ngFor="let diet of diets">
-        <ion-button expand="block" shape="round" fill="solid" (click)="getRecommendations($event)">{{ diet }}</ion-button>
+        <ion-button class="diet-btns" expand="block" shape="round" fill="solid" (click)="getRecommendations($event)">{{ diet }}</ion-button>
       </ion-item>
     </ion-list>
     
@@ -52,22 +52,23 @@
   </ion-list-header>
   
   <ion-list type="list-inset" *ngFor="let food of recommended_results_display">
-    <ion-item>
-      <ion-label class="ion-text-wrap"> {{ food.name }} </ion-label>
-
-      <br><br/>
-
-      <!-- show details of food item -->
-      <div class="show-details-btn">
-        <ion-button (click)="showDetails(food.name, food.foodCategory)"> See Details </ion-button>
+    <ion-item class="food-wrapper">
+      <div class="food-name-container">
+        <ion-label class="ion-text-wrap"> {{ food.name }} </ion-label>
       </div>
 
-      <br><br/>
+      <div class="food-item-container">
+        <!-- show details of food item -->
+        <div class="show-details-btn">
+          <ion-button (click)="showDetails(food.name, food.foodCategory)"> See Details </ion-button>
+        </div>
 
-      <!-- add food to user list -->
-      <div class="add-item-btn">
-        <ion-button (click)="add_food(food)"> Add Food </ion-button>
+        <!-- add food to user list -->
+        <div class="add-item-btn">
+          <ion-button (click)="add_food(food)"> Add Food </ion-button>
+        </div>
       </div>
+
     </ion-item>
   </ion-list>
 
