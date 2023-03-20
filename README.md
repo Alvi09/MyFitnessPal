@@ -32,9 +32,9 @@ ionic lab
 For any concerns, feel free to reach out by [email](dinhjd@uci.edu).
 
 ## Authors and Contributors
-Johnson Du Dinh
-Alvin Ly
-Tyler Cheng
+Johnson Du Dinh </br>
+Alvin Ly </br>
+Tyler Cheng </br>
 Alan Yi
 
 ## Acknowledgements
